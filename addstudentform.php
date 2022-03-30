@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   
   <!-- you may also use W3's formats -->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link href="style/textbook-css.css" rel="stylesheet" type="text/css"/>
   
   <!-- 
   Use a link tag to link an external resource.
@@ -59,13 +60,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </head>
 
 <body>
+<?php include('header.html') ?>
+  <?php session_start(); ?>
 <div class="container">
   <h1>Create Profile</h1>  
 
   <form name="mainForm" action="addstudentform.php" method="post">   
   <div class="row mb-3 mx-3">
     ID:
+    
     <input type="text" class="form-control" name="studentid" required 
+            value="<?php if ($_SESSION['user']!=null) echo $_SESSION['user'] ?>"
     />
   </div>
   <div class="row mb-3 mx-3">

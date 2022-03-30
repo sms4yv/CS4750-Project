@@ -1,0 +1,54 @@
+/*Elena Lensink*/
+* {
+  box-sizing: border-box;
+}
+
+/* these are for the eventual jeopardy game*/
+@media only screen and (max-width: 768px) {
+  /* For mobile phones and tablets: */
+  [class*="col-"] {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+   width: 20%;
+}
+
+nav {
+    color: White;
+    background-color: LightSkyBlue;
+}
+
+.jumbotron {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: MintCream;
+ }
+
+ .container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+ }
+
+html, body {
+background-color: #AFEEEE;
+color: White;
+
+}
+
+
+#login-page {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#username-show{
+    text-align:center;
+    font-family:Georgia, serif;
+}
+
+.feedback{
+    font-style: italic;
+    color: red;
+}
