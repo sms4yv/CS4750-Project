@@ -29,7 +29,7 @@
 
 
 <div class="container">
- Welcome!
+<h2> Welcome! <?php if ($_SESSION['user']!=null) echo $_SESSION['user']?> </h2>
 </div>
 
 
