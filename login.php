@@ -74,11 +74,24 @@ function authenticate()
       $results = $statement->fetchAll();
       $statement->closeCursor();
       $numresults = 0;
+      $query2 = "SELECT * FROM `Student` WHERE studentID = (:studentID)";
+
+      $statement2 = $db->prepare($query2);
+      $statement2->bindValue(':studentID', $username);
+      $statement2->execute();
+      $results2 = $statement2->fetchAll();
+      $statement2->closeCursor();
+      $numresults = 0;
+      $numStudentResults = 0;
       foreach($results as $result){
         $db_username = $result['studentID'];
-        $db_pwd = $result['pwd'];// Did not hash because this messed up cs webserver deployment
+        $db_pwd = $result['pwd'];
         $numresults = $numresults +1;
       }
+      foreach($results2 as $result2){
+        $numStudentResults = $numStudentResults +1;
+      }
+    
     
       if($numresults > 0)
       {
@@ -105,7 +118,14 @@ function authenticate()
         $results = $statement->fetchAll();
         $statement->closeCursor();
         $numresults = 0;
-         header("Location: addstudentform.php");
+        if ($numStudentResults > 0)
+        {
+          header("Location: account.php");
+        }
+        else{
+          header("Location: addstudentform.php");
+        }
+         
       }
    }
 }
