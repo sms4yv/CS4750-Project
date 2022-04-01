@@ -9,6 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       // If the button is clicked and its value is "Add" then call addFriend() function
 
       addStudent($_POST['studentid'], $_POST['name'], $_POST['year']);
+      addMajor($_POST['studentid'], $_POST['major1']);
+      if ($_POST['major2'] != NULL) {
+        addMajor($_POST['studentid'], $_POST['major2']);
+      }
     }
 }
 
@@ -81,6 +85,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <div class="row mb-3 mx-3">
     Year:
     <input type="number" class="form-control" name="year" required min="1" max="4" 
+    /> 
+  </div>  
+  <div class="row mb-3 mx-3">
+    Major:
+    <input type="text" class="form-control" name="major1" required 
+    /> 
+  </div> 
+  <div class="row mb-3 mx-3">
+    Second Major?:
+    <input type="text" class="form-control" name="major2"
     /> 
   </div>    
   <input type="submit" value="Create" name="btnAction" class="btn btn-dark" 
