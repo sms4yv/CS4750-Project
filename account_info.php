@@ -1,6 +1,7 @@
 <?php
 require('connect-db.php');
 require('student_db.php');
+require('takes_db.php');
 
 if(!isset($_SESSION)) { 
     session_start(); 
@@ -8,6 +9,16 @@ if(!isset($_SESSION)) {
 
 $current_user = getStudent($_SESSION['user']);
 $user_majors = getMajors($_SESSION['user']);
+$user_classes = getClassesByUser($_SESSION['user']);
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+  if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Delete")
+  {
+    deleteClass($_SESSION['user'], $_POST["class_to_delete_dept"], $_POST["class_to_delete_id"], $_POST["class_to_delete_section"]);
+    $user_classes = getClassesByUser($_SESSION['user']);
+  }
+}
 
 ?>
 
@@ -66,14 +77,52 @@ $user_majors = getMajors($_SESSION['user']);
     <p> Year: <?php if ($_SESSION['user']!=null) echo $current_user['year'] ?> </p>
     <p> Major(s): <?php if ($_SESSION['user']!=null && count($user_majors) > 1) {echo $user_majors[0]['major'].", ".$user_majors[1]['major'];} else { echo $user_majors[0]['major'];} ?> </p>
 
-    <div style="display: flex;">
     <form action="updatestudent.php">
-        <input type="submit" value="Edit?" />
+        <input type="submit" class="btn btn-dark" value="Edit?" />
     </form>
-    <form action="account.php">
-        <input type="submit" value="Back to Home" />
-    </form>
-</div>
+    <hr/>
+    <h2>Your Schedule</h2>
+    <!-- <div class="row justify-content-center">   -->
+    <?php if ($user_classes != null): ?>
+      <table class="w3-table w3-bordered w3-card-4" style="width:90%">
+      <thead>
+      <tr style="background-color:#B0B0B0">
+        <th width="25%">Department</th>        
+        <th width="25%">Course ID</th>        
+        <th width="20%">Section</th> 
+        <th width="12%">Delete?</th>
+      </tr>
+      </thead>
+      <?php foreach ($user_classes as $class): ?>
+      <tr>
+        <td><?php echo $class['dept']; ?></td>
+        <td><?php echo $class['courseID']; ?></td>
+        <td><?php echo $class['section']; ?></td> 
+        <td>
+          <form action="account_info.php" method="post">
+            <input type="submit" value="Delete" name="btnAction" class="btn btn-primary" />
+            <input type="hidden" name="class_to_delete_dept" value="<?php echo $class['dept'] ?>" />      
+            <input type="hidden" name="class_to_delete_id" value="<?php echo $class['courseID'] ?>" />      
+            <input type="hidden" name="class_to_delete_section" value="<?php echo $class['section'] ?>" />      
+          </form>
+        </td>
+      </tr>
+      <?php endforeach; ?>
+      <?php else: ?>
+          <p> You have not added any classes to your schedule yet </p>
+      <?php endif ?>
+
+      </table>
+
+      <hr/>
+      <form action="build_schedule.php">
+        <input type="submit" class="btn btn-dark" value="Add Courses?" />
+      </form>
+
+      <hr/>
+      <form action="account.php">
+        <input type="submit" class="btn btn-dark" value="Back to Home" />
+      </form>
 <!-- </div>   -->
 
 
