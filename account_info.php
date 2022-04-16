@@ -9,20 +9,6 @@ if(!isset($_SESSION)) {
 $current_user = getStudent($_SESSION['user']);
 $user_majors = getMajors($_SESSION['user']);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST')
-{
-  if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Update")
-  {
-    updateStudent($_SESSION['user'], $_POST['name'], $_POST['year']);
-    deleteMajors($_SESSION['user']);
-    addMajor($_SESSION['user'], $_POST['major1']);
-    if ($_POST['major2'] != NULL) {
-      addMajor($_SESSION['user'], $_POST['major2']);
-    }
-    header('Location: account_info.php');
-  }
-}
-
 ?>
 
 <!-- 1. create HTML5 doctype -->
@@ -42,9 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   -->
   
   <meta name="eal8hs, sms4yv, btg6zn" content="CS 4750 Project">
-  <meta name="Textbook Seller" content="Page to update student profile">  
+  <meta name="Textbook Seller" content="Page to show student profile">  
     
-  <title>Update Profile</title>
+  <title>Your Profile</title>
   
   <!-- 3. link bootstrap -->
   <!-- if you choose to use CDN for CSS bootstrap -->  
@@ -72,34 +58,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 <body>
 <?php include('header.html') ?>
-<div class="container">
-  <h1>Updating Profile for ID: <?php if ($_SESSION['user']!=null) echo $_SESSION['user'] ?></h1>  
 
-  <form name="mainForm" action="updatestudent.php" method="post">   
-  <div class="row mb-3 mx-3">
-    Name:
-    <input type="text" class="form-control" name="name" value="<?php if ($_SESSION['user']!=null) echo $current_user['name'] ?>"
-    />        
-  </div>  
-  <div class="row mb-3 mx-3">
-    Year:
-    <input type="number" class="form-control" name="year" min="1" max="4" value="<?php if ($_SESSION['user']!=null) echo $current_user['year'] ?>"
-    /> 
-  </div>  
-  <div class="row mb-3 mx-3">
-    Major:
-    <input type="text" class="form-control" name="major1" value="<?php if ($_SESSION['user']!=null) echo $user_majors[0]['major'] ?>"
-    /> 
-  </div> 
-  <div class="row mb-3 mx-3">
-    Second Major?:
-    <input type="text" class="form-control" name="major2" value="<?php if ($_SESSION['user']!=null && count($user_majors) > 1) echo $user_majors[1]['major'] ?>"
-    /> 
-  </div>    
-  <input type="submit" value="Update" name="btnAction" class="btn btn-dark" 
-        title="update profile" />  
-</form>    
+  <h1>Profile Information</h1>  
 
+    <p> ID: <?php if ($_SESSION['user']!=null) echo $_SESSION['user'] ?> </p>
+    <p> Name: <?php if ($_SESSION['user']!=null) echo $current_user['name'] ?> </p>
+    <p> Year: <?php if ($_SESSION['user']!=null) echo $current_user['year'] ?> </p>
+    <p> Major(s): <?php if ($_SESSION['user']!=null && count($user_majors) > 1) {echo $user_majors[0]['major'].", ".$user_majors[1]['major'];} else { echo $user_majors[0]['major'];} ?> </p>
+
+    <div style="display: flex;">
+    <form action="updatestudent.php">
+        <input type="submit" value="Edit?" />
+    </form>
+    <form action="account.php">
+        <input type="submit" value="Back to Home" />
+    </form>
+</div>
 <!-- </div>   -->
 
 
@@ -110,6 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <!-- for local -->
   <!-- <script src="your-js-file.js"></script> -->  
   
-</div>    
+   
 </body>
 </html>
