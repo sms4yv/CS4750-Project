@@ -141,6 +141,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       <form action="account.php">
         <input type="submit" class="btn btn-dark" value="Back to Home" />
       </form>
+      <hr/>
+      <form action="logout.php">
+        <input type="submit" class="btn btn-dark" value="Logout" />
+      </form>
 <!-- </div>   -->
 
 
