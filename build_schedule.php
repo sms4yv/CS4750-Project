@@ -33,11 +33,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
           echo "No classes in database - no textbooks needed";
         }
       } else {
-        $result = searchClassesByDeptAndID($_POST['dept'], $_POST['courseid']);
-        if ($result != []) {
-          $list_of_classes = $result;
+        if ($_POST['courseid'] % 1000 == 0) {
+          $result = searchClassesByLevel($_POST['dept'], $_POST['courseid']);
+          if ($result != []) {
+            $list_of_classes = $result;
+          } else {
+            echo "No classes at the specified level in the database - no textbooks needed";
+          }
         } else {
-          echo "Class not in database - no textbooks needed";
+          $result = searchClassesByDeptAndID($_POST['dept'], $_POST['courseid']);
+          if ($result != []) {
+            $list_of_classes = $result;
+          } else {
+            echo "Class not in database - no textbooks needed";
+          }
         }
       }   
     } else if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Add") {
@@ -104,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </div>
   <div class="row mb-3 mx-3">
     Course ID:
-    <input type="text" class="form-control" name="courseid" min="0000" max="9999" placeholder="Enter the course ID (i.e. 4750)"
+    <input type="text" class="form-control" name="courseid" min="0000" max="9999" placeholder="Enter the course ID (i.e. 4750) or a level (i.e. 2000 to search for all 2000-level courses in the department)"
     />        
   </div>  
   <input type="submit" value="Search" name="btnAction" class="btn btn-dark" 

@@ -47,6 +47,18 @@ function searchClassesByID($courseid) {
 	return $results;
 }
 
+function searchClassesByLevel($dept, $courseid) {
+    global $db;
+    $query = "select * from Course where dept = :dept and courseID >= :courseid and courseID < :courseid + 1000";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':dept', $dept);
+    $statement->bindValue(':courseid', $courseid);
+	$statement->execute();
+	$results = $statement->fetchAll();   
+	$statement->closeCursor();
+	return $results;
+}
+
 function addClass($studentid, $dept, $courseid, $section)
 {
     global $db;
