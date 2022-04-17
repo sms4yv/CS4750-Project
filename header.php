@@ -24,7 +24,7 @@
         <ul class="navbar-nav w-200"><!-- looked up bootstrap width to rearrange navbar elements-->
             <li class="nav-item">
                 <a class="nav-link" href="account_info.php" id="item03" aria-haspopup="true" aria-expanded="false">Account Info</a>
-                <button type="button" class="btn btn-danger" value="logout" onlick=<?php session_destroy();>>
+                <button type="button" class="btn btn-danger" value="logout" onlick=<?php session_destroy();?>>
             </li>
         </ul>
     </div>
