@@ -1,5 +1,10 @@
 <?php
     require('connect-db.php');
+
+    if($_SESSION['user'] == null) {
+        header("Location: login.php");
+      }
+      
    // require('textbook_db.php');
     $results = Array();
     
