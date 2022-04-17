@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       if ($_POST['major2'] != NULL) {
         addMajor($_POST['studentid'], $_POST['major2']);
       }
+      header('Location: account.php');
     }
 }
 
