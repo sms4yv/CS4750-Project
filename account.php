@@ -10,6 +10,7 @@
     <meta name="Textbook Seller" content="Page to login to site"> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link href="style/textbook-css.css" rel="stylesheet" type="text/css"/>
+    <link rel="icon" type="image/png" href="https://freesvg.org/img/1372705595.png" />
   </head>
 
 <head>
