@@ -90,6 +90,7 @@ function authenticate()
       }
       foreach($results2 as $result2){
         $numStudentResults = $numStudentResults +1;
+        echo $results2;
       }
     
     
@@ -97,8 +98,15 @@ function authenticate()
       {
         if (password_verify($pwd, $db_pwd))
         {
-            $_SESSION['user']= $username;
-            header("Location: account.php");
+          if ($numStudentResults > 0)
+        {
+          $_SESSION['user']= $username;
+          header("Location: account.php");
+        }
+        else{
+          $_SESSION['user']= $username;
+          header("Location: addstudentform.php");
+        }
         }
         else
         {
@@ -109,20 +117,34 @@ function authenticate()
       }
       else
       {
-        $query2 = "INSERT INTO login_info (studentID,pwd) values (:studentID,:pwd)";
+        $query = "INSERT INTO login_info (studentID,pwd) values (:studentID,:pwd)";
 
-        $statement = $db->prepare($query2);
+        $statement = $db->prepare($query);
         $statement->bindValue(':studentID', $username);
         $statement->bindValue(':pwd', $hashed_password);
         $statement->execute();
         $results = $statement->fetchAll();
         $statement->closeCursor();
-        $numresults = 0;
+        $query2 = "SELECT * FROM `Student` WHERE studentID = (:studentID)";
+
+        $statement2 = $db->prepare($query2);
+        $statement2->bindValue(':studentID', $username);
+        $statement2->execute();
+        $results2 = $statement2->fetchAll();
+        $statement2->closeCursor();
+  
+        $numStudentResults = 0;
+      
+      foreach($results2 as $result2){
+        $numStudentResults = $numStudentResults +1;
+      }
         if ($numStudentResults > 0)
         {
+          $_SESSION['user']= $username;
           header("Location: account.php");
         }
         else{
+          $_SESSION['user']= $username;
           header("Location: addstudentform.php");
         }
          
