@@ -6,7 +6,7 @@ if(!isset($_SESSION)) {
 
    // require('textbook_db.php');
     $results = Array();
-    $favs = getFav();
+    //$favs = getFav();
     if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
    // echo "POST CALLED";
