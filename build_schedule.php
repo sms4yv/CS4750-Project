@@ -99,12 +99,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <form name="mainForm" action="build_schedule.php" method="post">   
   <div class="row mb-3 mx-3">
     Department Abbreviation:
-    <input type="text" class="form-control" name="dept" 
+    <input type="text" class="form-control" name="dept" placeholder="Enter the dept code (i.e. CS or PHYS)"
     />
   </div>
   <div class="row mb-3 mx-3">
     Course ID:
-    <input type="text" class="form-control" name="courseid" min="0000" max="9999"
+    <input type="text" class="form-control" name="courseid" min="0000" max="9999" placeholder="Enter the course ID (i.e. 4750)"
     />        
   </div>  
   <input type="submit" value="Search" name="btnAction" class="btn btn-dark" 
