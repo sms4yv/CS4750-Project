@@ -137,7 +137,7 @@ function getTextbook($search){
         <td><?php echo $entry['price']; ?></td>
         <td><?php echo $entry['book_type']?></td>
         <tr>
-        <?php }}; ?>
+        <?php }; ?>
         </table>
         
         
