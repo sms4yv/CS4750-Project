@@ -6,6 +6,10 @@ if(!isset($_SESSION)) {
   session_start(); 
 } 
 
+if($_SESSION['user'] == null) {
+  header("Location: login.php");
+}
+
 $list_of_classes = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')

@@ -26,6 +26,8 @@
   <?php include('header.html') ?>
   <?php session_start(); ?>
 
+  <?php if($_SESSION['user'] == null) { header("Location: login.php"); } ?>
+
 
 
 <div class="container">

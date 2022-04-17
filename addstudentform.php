@@ -2,6 +2,10 @@
 require('connect-db.php');
 require('student_db.php');
 
+if($_SESSION['user'] == null) {
+  header("Location: login.php");
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "Create")
