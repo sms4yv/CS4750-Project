@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "search")
   {
-    header("reqTextbook.php");
+    header("Location: reqTextbook.php");
   }
 }
 ?>
@@ -140,6 +140,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       <hr/>
       <form action="account.php">
         <input type="submit" class="btn btn-dark" value="Back to Home" />
+      </form>
+      <hr/>
+      <form action="logout.php">
+        <input type="submit" class="btn btn-dark" value="Logout" />
       </form>
 <!-- </div>   -->
 
