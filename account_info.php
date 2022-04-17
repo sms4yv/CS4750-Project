@@ -2,7 +2,7 @@
 require('connect-db.php');
 require('student_db.php');
 require('takes_db.php');
-require('reqTextbook.php');
+
 if(!isset($_SESSION)) { 
     session_start(); 
 } 
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
           </form>
         </td>
         <td>
-          <form action="reqTextbook.php" method="post">
+          <form method="post">
             <input type="submit" value="search" name="btnAction" class="btn btn-info" />
             <input type="hidden" name="class_dept" value="<?php echo $class['dept'] ?>" />      
             <input type="hidden" name="class_id" value="<?php echo $class['courseID'] ?>" />           
