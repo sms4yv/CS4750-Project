@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "search")
   {
-    header("reqTextbook.php");
+    header("Location: reqTextbook.php");
   }
 }
 ?>
