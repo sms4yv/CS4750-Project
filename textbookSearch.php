@@ -23,7 +23,7 @@ if(!isset($_SESSION)) {
 function getTextbook($search){
     global $db;
     //echo "preparing statement with ".$search." as primary key";
-    $query = "SELECT * FROM `sells` WHERE `ISBN` = (:ISBN)";
+    $query = "SELECT * FROM `sells` NATURAL JOIN `Seller` WHERE `ISBN` = (:ISBN)";
     //echo $query;
     $statement = $db->prepare($query);
     $statement->bindValue(':ISBN', $search);
@@ -90,8 +90,7 @@ function getTextbook($search){
   -->
   
   <!-- If you choose to use a favicon, specify the destination of the resource in href -->
-  <link rel="icon" type="image/png" href="http://www.cs.virginia.edu/~up3f/cs4750/images/db-icon.png" />
-  
+  <link rel="icon" type="image/png" href="https://freesvg.org/img/1372705595.png" />  
   <!-- if you choose to download bootstrap and host it locally -->
   <!-- <link rel="stylesheet" href="path-to-your-file/bootstrap.min.css" /> --> 
   
@@ -136,8 +135,13 @@ function getTextbook($search){
         <td><?php echo $entry['ISBN']; ?></td>
         <td><?php echo $entry['price']; ?></td>
         <td><?php echo $entry['book_type']?></td>
-        <tr>
+        <td><form action = "<?php echo $entry['url']?>">
+            <input type="submit" class="btn btn-light" value="LINK"/>
+        </form>
+        </td>
+        </tr>
         <?php }; ?>
+
         </table>
         
         

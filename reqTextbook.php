@@ -18,13 +18,12 @@
 function getReqTextbook($ID, $dept){
     global $db;
     //echo "preparing statement with ".$search." as primary key";
-    $query = "SELECT `ISBN`, `title`, `author`, `sname`, `price` FROM `has` NATURAL JOIN `Textbook` NATURAL JOIN `sells` WHERE `courseID` = (:courseID) AND `dept` = (:dept);";
+    $query = "SELECT DISTINCT `ISBN`, `title`, `author`, `sname`, `price` FROM `has` NATURAL JOIN `Textbook` NATURAL JOIN `sells` WHERE `courseID` = (:courseID) AND `dept` = (:dept);";
     //echo $query;
     $statement = $db->prepare($query);
     $statement->bindValue(':courseID', $ID);
     $statement->bindValue(':dept', $dept);
 	$statement->execute();  
-
     $results = $statement->fetchAll();
     $statement->closeCursor();
     return $results;
@@ -60,7 +59,7 @@ function getReqTextbook($ID, $dept){
   <!-- you may also use W3's formats -->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link href="style/textbook-css.css" rel="stylesheet" type="text/css"/>
-  
+  <link rel="icon" type="image/png" href="https://freesvg.org/img/1372705595.png" />
   <!-- 
   Use a link tag to link an external resource.
   A rel (relationship) specifies relationship between the current document and the linked resource. 
