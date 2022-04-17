@@ -6,6 +6,10 @@ if(!isset($_SESSION)) {
     session_start(); 
 } 
 
+if($_SESSION['user'] == null) {
+  header("Location: login.php");
+}
+
 $current_user = getStudent($_SESSION['user']);
 $user_majors = getMajors($_SESSION['user']);
 
