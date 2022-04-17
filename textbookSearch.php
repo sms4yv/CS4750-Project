@@ -1,9 +1,12 @@
 <?php
+if(!isset($_SESSION)) { 
+    session_start(); 
+} 
     require('connect-db.php');
 
    // require('textbook_db.php');
     $results = Array();
-    $favs = getFav();
+    //$favs = getFav();
     if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
    // echo "POST CALLED";
@@ -30,19 +33,25 @@ function getTextbook($search){
     $statement->closeCursor();
     return $results;
     }
-function getFav(){
-    if($_SESSION["user"] !== null){
-    $query2 = "SELECT sname FROM `favorite` WHERE `studentID` = (:ID)";
-    //echo $query;
-    $statement2 = $db->prepare($query2);
-    $statement2->bindValue(':ID', $_SESSION['user']);
-	$statement2->execute();  
-
-    $favs = $statement->fetchAll();
-    $statement->closeCursor();
-    return $favs;
-}
-}
+// function getFav(){
+//     global $db;
+//     if($_SESSION["user"] !== null){
+//     $query2 = "SELECT sname FROM `favorite` WHERE `studentID` = (:ID)";
+//     //echo $query;
+//     $statement2 = $db->prepare($query2);
+//     $statement2->bindValue(':ID', $_SESSION['user']);
+// 	$statement2->execute();  
+//     $favs = $statement2->fetchAll();
+//     $statement2->closeCursor();
+//     return $favs;
+// }
+// }
+// function cmp($a){
+//     global $favs;
+//     if($a !==null and $favs !=null){
+//     return strcmp($a['sname'], $favs[0]['sname']);
+// }
+// }
 ?>
 <!DOCTYPE html>
 <html>
@@ -94,7 +103,6 @@ function getFav(){
     
     <body>
     <?php include('header.html') ?>
-    <?php session_start(); ?>
     <?php if($_SESSION['user'] == null) {
         header("Location: login.php");
       } ?>
@@ -113,14 +121,15 @@ function getFav(){
             <th width="25%">Seller</th>
             <th width="25%">ISBN</th>
             <th width="15%">Price</th>
-            <th width="15%">Type ?</th>
+            <th width="15%">Type</th>
+            <th width= "10%">Link</th>
         </tr>
         </thead>
         <?php
-        if($results !== null){
-            if($favs !==null){
-                ksort($results, $favs[0]);
-            }
+        // if($results !== null){
+        //     if($favs !==null){
+        //         usort($results, "cmp");
+        //     }
         foreach($results as $entry){?>
          <tr>
          <td><?php echo $entry['sname']; ?></td>
@@ -128,7 +137,7 @@ function getFav(){
         <td><?php echo $entry['price']; ?></td>
         <td><?php echo $entry['book_type']?></td>
         <tr>
-        <?php }}; ?>
+        <?php }; ?>
         </table>
         
         
