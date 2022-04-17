@@ -23,7 +23,7 @@ if(!isset($_SESSION)) {
 function getTextbook($search){
     global $db;
     //echo "preparing statement with ".$search." as primary key";
-    $query = "SELECT * FROM `sells` WHERE `ISBN` = (:ISBN)";
+    $query = "SELECT * FROM `sells` NATURAL JOIN `Seller` WHERE `ISBN` = (:ISBN)";
     //echo $query;
     $statement = $db->prepare($query);
     $statement->bindValue(':ISBN', $search);
@@ -136,8 +136,13 @@ function getTextbook($search){
         <td><?php echo $entry['ISBN']; ?></td>
         <td><?php echo $entry['price']; ?></td>
         <td><?php echo $entry['book_type']?></td>
-        <tr>
+        <td><form action = "<?php echo $entry['url']?>">
+            <input type="submit" class="btn btn-light" value="LINK"/>
+        </form>
+        </td>
+        </tr>
         <?php }; ?>
+
         </table>
         
         

@@ -18,13 +18,12 @@
 function getReqTextbook($ID, $dept){
     global $db;
     //echo "preparing statement with ".$search." as primary key";
-    $query = "SELECT `ISBN`, `title`, `author`, `sname`, `price` FROM `has` NATURAL JOIN `Textbook` NATURAL JOIN `sells` WHERE `courseID` = (:courseID) AND `dept` = (:dept);";
+    $query = "SELECT DISTINCT `ISBN`, `title`, `author`, `sname`, `price` FROM `has` NATURAL JOIN `Textbook` NATURAL JOIN `sells` WHERE `courseID` = (:courseID) AND `dept` = (:dept);";
     //echo $query;
     $statement = $db->prepare($query);
     $statement->bindValue(':courseID', $ID);
     $statement->bindValue(':dept', $dept);
 	$statement->execute();  
-
     $results = $statement->fetchAll();
     $statement->closeCursor();
     return $results;
