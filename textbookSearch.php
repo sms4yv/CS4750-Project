@@ -2,7 +2,7 @@
     require('connect-db.php');
    // require('textbook_db.php');
     $results = Array();
-    
+    $favs = getFav();
     if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
    // echo "POST CALLED";
@@ -29,6 +29,19 @@ function getTextbook($search){
     $statement->closeCursor();
     return $results;
     }
+function getFav(){
+    if($_SESSION["user"] !== null){
+    $query2 = "SELECT sname FROM `favorite` WHERE `studentID` = (:ID)";
+    //echo $query;
+    $statement2 = $db->prepare($query2);
+    $statement2->bindValue(':ID', $_SESSION['user']);
+	$statement2->execute();  
+
+    $favs = $statement->fetchAll();
+    $statement->closeCursor();
+    return $favs;
+}
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -101,6 +114,9 @@ function getTextbook($search){
         </thead>
         <?php
         if($results !== null){
+            if($favs !==null){
+                ksort($results, $favs[0]);
+            }
         foreach($results as $entry){?>
          <tr>
          <td><?php echo $entry['sname']; ?></td>
