@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
         <ul class="navbar-nav w-100"><!-- looked up bootstrap width to rearrange navbar elements-->
             <li class="nav-item">
-                <a class="nav-link" href="http://localhost:4200" id="item02" aria-haspopup="true" aria-expanded="false">Search</a>
+                <a class="nav-link" href="textbookSearch.php" id="item02" aria-haspopup="true" aria-expanded="false">Search</a>
             </li>
         </ul>
     </div>
@@ -24,10 +24,16 @@
         <ul class="navbar-nav w-200"><!-- looked up bootstrap width to rearrange navbar elements-->
             <li class="nav-item">
                 <a class="nav-link" href="account_info.php" id="item03" aria-haspopup="true" aria-expanded="false">Account Info</a>
-                <button type="button" class="btn btn-danger" value="logout" onlick=<?php session_destroy();>>
             </li>
         </ul>
     </div>
+    <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+        <ul class="navbar-nav w-200"><!-- looked up bootstrap width to rearrange navbar elements-->
+            <li class="nav-item">
+    <button type="button" class="btn btn-danger" value="logout" onlick="<?php session_destroy(); header("Location: login.php");?>">
+</li>
+</ul>
+</div>
 </nav>
 <!-- got scripts from example navbar from class -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

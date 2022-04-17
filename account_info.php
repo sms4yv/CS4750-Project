@@ -2,7 +2,7 @@
 require('connect-db.php');
 require('student_db.php');
 require('takes_db.php');
-
+require('reqTextbook.php');
 if(!isset($_SESSION)) { 
     session_start(); 
 } 
@@ -23,7 +23,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $user_classes = getClassesByUser($_SESSION['user']);
   }
 }
-
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+  if (!empty($_POST['btnAction']) && $_POST['btnAction'] == "search")
+  {
+    header("reqTextbook.php");
+  }
+}
 ?>
 
 <!-- 1. create HTML5 doctype -->
@@ -95,6 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         <th width="25%">Course ID</th>        
         <th width="20%">Section</th> 
         <th width="12%">Delete?</th>
+        <th width="12%">Find Textbooks</th>
       </tr>
       </thead>
       <?php foreach ($user_classes as $class): ?>
@@ -104,10 +111,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         <td><?php echo $class['section']; ?></td> 
         <td>
           <form action="account_info.php" method="post">
-            <input type="submit" value="Delete" name="btnAction" class="btn btn-primary" />
+            <input type="submit" value="Delete" name="btnAction" class="btn btn-danger" />
             <input type="hidden" name="class_to_delete_dept" value="<?php echo $class['dept'] ?>" />      
             <input type="hidden" name="class_to_delete_id" value="<?php echo $class['courseID'] ?>" />      
             <input type="hidden" name="class_to_delete_section" value="<?php echo $class['section'] ?>" />      
+          </form>
+        </td>
+        <td>
+          <form action="reqTextbook.php" method="post">
+            <input type="submit" value="search" name="btnAction" class="btn btn-info" />
+            <input type="hidden" name="class_dept" value="<?php echo $class['dept'] ?>" />      
+            <input type="hidden" name="class_id" value="<?php echo $class['courseID'] ?>" />           
           </form>
         </td>
       </tr>
