@@ -28,9 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['btnActionAdd']))
   {
+    if (verifyTextbook($_POST["isbn"])){
     addTextbook($_SESSION['user'], $_POST["isbn"]);
     $user_classes = getTextbooksByUser($_SESSION['user']);
     header("Location: owns.php");
+  }else{
+      echo "invalid isbn";
+  }
   }
 }
 ?>
@@ -69,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   -->
   
   <!-- If you choose to use a favicon, specify the destination of the resource in href -->
-  <link rel="icon" type="image/png" href="https://freesvg.org/img/1372705595.png" />
+  <link rel="icon" type="image/png" href="https://freesvg.org/img/1372705595.png" /> 
   
   <!-- if you choose to download bootstrap and host it locally -->
   <!-- <link rel="stylesheet" href="path-to-your-file/bootstrap.min.css" /> --> 
@@ -100,8 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       </thead>
       <?php foreach ($user_textbooks as $textbook_isbn): ?>
       <tr>
-        <?php $textbooks = searchTextbookByID($textbook_isbn['ISBN']);?>
-        <?php foreach ($textbooks as $textbook): ?>
+        <?php $textbook= searchTextbookByID($textbook_isbn['ISBN']);?>
         <td><?php echo $textbook['ISBN']; ?></td>
         <td><?php echo $textbook['title']; ?></td>
         <td><?php echo $textbook['author']; ?></td> 
@@ -116,7 +119,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       </tr>
         </hr>
       
-      <?php endforeach; ?>
       <?php endforeach; ?>
       <?php else: ?>
           <p> You have not added any classes to your schedule yet </p>

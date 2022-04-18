@@ -8,7 +8,7 @@ function searchTextbookByID($isbn) {
     $statement = $db->prepare($query);
     $statement->bindValue(':isbn', $isbn);
     $statement->execute();
-    $results = $statement->fetchAll();   
+    $results = $statement->fetch();   
 	$statement->closeCursor();
 	return $results;
 }
@@ -59,6 +59,22 @@ function getCountTextbook($studentID){
     }
 
     return $results;
+
+}
+function verifyTextbook($isbn){
+    global $db;
+    $query = "select * from Textbook where ISBN = (:isbn)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':isbn', $isbn);
+    $statement->execute();
+    $results = $statement->fetchAll();   
+	$statement->closeCursor();
+    $numResults = 0;
+    foreach ($results as $result):
+        $numResults += 1;
+    endforeach;
+
+	return $numResults>0;
 
 }
 
