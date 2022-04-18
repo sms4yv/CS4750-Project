@@ -34,9 +34,7 @@
 <div class="container">
 <h2> Welcome! <?php if ($_SESSION['user']!=null) echo $_SESSION['user']?> </h2>
 </div>
-<div>
-<a class="nav-link btn btn-primary" href="textbookSearch.php" id="tbSearch" aria-haspopup="true" aria-expanded="false">Search for Textbooks</a>
-</div>
+
 
 
 
