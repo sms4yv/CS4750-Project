@@ -87,10 +87,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <?php include('header.html') ?>
 
 
-    <h2>Your Have <?php echo getCountTextbook($_SESSION['user']);
+    <?php if(getCountTextbook($_SESSION['user']) == 1): ?>
+    <h2>You Have <?php echo getCountTextbook($_SESSION['user']);
+    
+    ?>
+    Textbook</h2>
+    <?php else: ?>
+      <h2>You Have <?php echo getCountTextbook($_SESSION['user']);
     
     ?>
     Textbooks</h2>
+    <?php endif ?>
     <!-- <div class="row justify-content-center">   -->
     <?php if ($user_textbooks != null): ?>
       <table class="w3-table w3-bordered w3-card-4" style="width:90%">
