@@ -136,6 +136,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       <form action="build_schedule.php">
         <input type="submit" class="btn btn-dark" value="Add Courses?" />
       </form>
+      <hr/>
+      <form action="owns.php">
+        <input type="submit" class="btn btn-dark" value="Textbook Inventory" />
+      </form>
 
       <hr/>
       <form action="account.php">
